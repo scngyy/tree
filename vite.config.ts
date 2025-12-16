@@ -4,7 +4,13 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    
+    // GitHub Pages需要设置base路径
+    // 如果环境变量设置了VITE_BASE_URL，使用它；否则根据mode判断
+    const base = env.VITE_BASE_URL || (mode === 'development' ? '/' : '/tree4/');
+    
     return {
+      base: base,
       server: {
         port: 3000,
         host: '0.0.0.0', // 允许外部访问
